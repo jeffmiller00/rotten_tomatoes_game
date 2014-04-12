@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Round:</strong>
+  <%= @guess.round %>
+</p>
+
+<p>
+  <strong>Attempt:</strong>
+  <%= @guess.attempt %>
+</p>
+
+<p>
+  <strong>Player:</strong>
+  <%= @guess.player %>
+</p>
+
+<%= link_to 'Edit', edit_guess_path(@guess) %> |
+<%= link_to 'Back', guesses_path %>
