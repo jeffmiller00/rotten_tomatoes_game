@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  movie: MyString
+  score: 1
+  game_id: 
+
+two:
+  movie: MyString
+  score: 1
+  game_id: 
