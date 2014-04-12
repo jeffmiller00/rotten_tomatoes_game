@@ -1,31 +1,36 @@
-<h1>Listing guesses</h1>
-
-<table>
+<%- model_class = Guess -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => Guess %></h1>
+</div>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Round</th>
-      <th>Attempt</th>
-      <th>Player</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>ID</th>
+      <th><%= model_class.human_attribute_name(:attempt) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
-
   <tbody>
     <% @guesses.each do |guess| %>
       <tr>
-        <td><%= guess.round %></td>
+        <td><%= guess.id %></td>
         <td><%= guess.attempt %></td>
-        <td><%= guess.player %></td>
-        <td><%= link_to 'Show', guess %></td>
-        <td><%= link_to 'Edit', edit_guess_path(guess) %></td>
-        <td><%= link_to 'Destroy', guess, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%=l guess.created_at, format: :long %></td>
+        <td>
+          <%= link_to guess_path(guess), :class => 'btn btn-xs', :title => "#{ t('.show', :default => t('helpers.links.show')) }" do %>
+            <%= glyph 'info-sign' %>
+            <%= glyph 'pencil' %>
+          <%- end -%>
+          <%= link_to guess_path(guess), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs', :title => "#{ t('.destroy', :default => t('helpers.links.destroy')) }" do %>
+            <%= glyph 'remove' %>
+          <%- end -%>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Guess', new_guess_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_guess_path,
+            :class => 'btn btn-primary' %>
