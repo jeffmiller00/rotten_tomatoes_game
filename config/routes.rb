@@ -1,4 +1,6 @@
 RottenTomatoesGame::Application.routes.draw do
+  resources :games
+
   resources :rounds
 
   resources :guesses
