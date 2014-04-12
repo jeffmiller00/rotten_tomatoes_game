@@ -1,17 +1,10 @@
-<%= form_for(@game) do |f| %>
-  <% if @game.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@game.errors.count, "error") %> prohibited this game from being saved:</h2>
+<%= form_for @game, :html => { :class => 'form-horizontal form-model' } do |f| %>
 
-      <ul>
-      <% @game.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+  <div class="form-group">
+    <div class='col-md-offset-2 col-md-10'>
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  games_path, :class => 'btn btn-default' %>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
   </div>
 <% end %>
