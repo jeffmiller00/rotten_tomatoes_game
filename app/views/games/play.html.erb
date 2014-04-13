@@ -2,7 +2,7 @@
 <div class="page-header">
   <h1><%= @game.name %></h1>
   <hr />
-  <h2><%= @first_round.movie %> (<%= @first_round.score %>)</h2>
+  <h2><%= @first_round.movie %></h2><small>(<%= @first_round.score %>)</small>
   <hr />
   <% @players.each do |p| %>
     <h3>Player: <%= p.name %></h3>
