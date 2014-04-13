@@ -15,6 +15,11 @@ class GamesController < ApplicationController
   # GET /games/new
   def new
     @game = Game.new
+
+    @players = Array.new
+    5.times do |i|
+      @players[i] = "Player #{i+1}"
+    end
   end
 
   # GET /games/1/edit
@@ -25,6 +30,13 @@ class GamesController < ApplicationController
   # POST /games.json
   def create
     @game = Game.new(game_params)
+
+    params[:players].each do |player_name|
+      p = Player.new
+      p.name = player_name
+      p.game = @game
+      p.save!
+    end
 
     respond_to do |format|
       if @game.save
@@ -75,8 +87,6 @@ class GamesController < ApplicationController
     if all_done
       redirect_to action: 'finish', id: params[:id]
     end
-=begin
-=end
   end
 
   def enter_score
@@ -95,8 +105,9 @@ class GamesController < ApplicationController
         @best_player = p
       end
     end
-=begin
-=end
+  end
+
+  def welcome
   end
 
   private

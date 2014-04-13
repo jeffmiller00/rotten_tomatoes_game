@@ -10,12 +10,5 @@ class Game < ActiveRecord::Base
     r.score = 77
     r.game = self
     r.save!
-
-    2.times do |n|
-      p = Player.new
-      p.name = "Player #{n}"
-      p.game = self
-      p.save!
-    end
   end
 end
