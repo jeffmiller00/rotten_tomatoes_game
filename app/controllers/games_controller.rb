@@ -17,7 +17,7 @@ class GamesController < ApplicationController
     @game = Game.new
 
     @players = Array.new
-    5.times do |i|
+    3.times do |i|
       @players[i] = "Player #{i+1}"
     end
   end
