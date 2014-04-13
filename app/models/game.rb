@@ -24,11 +24,14 @@ class Game < ActiveRecord::Base
     nick_cage_movies << 'Leaving Las Vegas'
     nick_cage_movies << 'Fast Times at Ridgemont High'
 
-    movie = nick_cage_movies.sample
-    rt_url = URI::encode("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=rjn9mtwg9unwzvm35bwneev3&page_limit=1&page=1&q=#{movie}")
-    movie_data = JSON.parse(HTTPI.get(rt_url).body)
-    movie_data = movie_data['movies'].first
-    score = movie_data['ratings']['critics_score']
+    score = -1
+    while score < 0 do
+        movie = nick_cage_movies.sample
+        rt_url = URI::encode("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=rjn9mtwg9unwzvm35bwneev3&page_limit=1&page=1&q=#{movie}")
+        movie_data = JSON.parse(HTTPI.get(rt_url).body)
+        movie_data = movie_data['movies'].first
+        score = movie_data['ratings']['critics_score']
+    end
 
     r = Round.new
     r.movie = movie
