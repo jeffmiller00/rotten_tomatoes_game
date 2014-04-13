@@ -1,0 +1,30 @@
+<%- model_class = Game -%>
+<div class="page-header">
+  <h1><%= @game.name %></h1>
+  <hr />
+  <h2><%= @first_round.movie %> (<%= @first_round.score %>)</h2>
+  <hr />
+  <% @players.each do |p| %>
+    <h3>Player: <%= p.name %></h3>
+
+    <% if p.guess.attempt %>
+      <h4>We've gotten your guess!</h4>
+    <% else %>
+      <%= form_tag({controller: 'games', action: 'play'}, method: 'post', class: 'form-horizontal form-model') do %>
+        <div class="form-group">
+          <%= label_tag :attempt, 'Guess:', :class => 'control-label col-md-2' %>
+          <div class="col-md-10">
+            <%= hidden_field_tag :guess_id, p.guess.id %>
+            <%= number_field_tag :attempt, p.guess.attempt, {:min => 0, :max => 100, :class => 'text-field form-control'} %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class='col-md-offset-2 col-md-10'>
+            <%= submit_tag nil, :class => 'btn btn-primary' %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

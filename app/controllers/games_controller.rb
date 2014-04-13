@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update, :destroy]
+  before_action :set_game, only: [:show, :edit, :update, :destroy, :play, :enter_score, :finish]
 
   # GET /games
   # GET /games.json
@@ -59,6 +59,44 @@ class GamesController < ApplicationController
       format.html { redirect_to games_url }
       format.json { head :no_content }
     end
+  end
+
+  def play
+    @first_round = @game.rounds.first
+    @players = @game.players
+
+    all_done = true
+    @players.each do |p|
+      if p.guess.attempt.blank?
+        all_done = false
+      end
+    end
+
+    if all_done
+      redirect_to action: 'finish', id: params[:id]
+    end
+=begin
+=end
+  end
+
+  def enter_score
+    Guess.update(params[:guess_id], :attempt => params[:attempt])
+    redirect_to action: 'play', id: params[:id], notice: 'Guess posted.'
+  end
+
+  def finish
+    @first_round = @game.rounds.first
+    @best_diff = 101
+    @best_player = nil
+
+    @game.players.each do |p|
+      if (@game.rounds.first.score - p.guess.attempt).abs < @best_diff
+        @best_diff = (@game.rounds.first.score - p.guess.attempt).abs
+        @best_player = p
+      end
+    end
+=begin
+=end
   end
 
   private

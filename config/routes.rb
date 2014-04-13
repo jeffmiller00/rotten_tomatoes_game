@@ -1,11 +1,12 @@
 RottenTomatoesGame::Application.routes.draw do
   resources :games
-
   resources :rounds
-
   resources :guesses
-
   resources :players
+
+  get  'games/:id/play' => 'games#play'
+  post 'games/:id/play' => 'games#enter_score'
+  get 'games/:id/finish' => 'games#finish'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

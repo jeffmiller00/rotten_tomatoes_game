@@ -14,6 +14,7 @@
 ActiveRecord::Schema.define(version: 20140412194653) do
 
   create_table "games", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -31,9 +32,12 @@ ActiveRecord::Schema.define(version: 20140412194653) do
 
   create_table "players", force: true do |t|
     t.string   "name"
+    t.integer  "game_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "players", ["game_id"], name: "index_players_on_game_id"
 
   create_table "rounds", force: true do |t|
     t.string   "movie"
